@@ -67,35 +67,22 @@ class _Level:
         else:
             self.parsers = parsers
 
-class Level:
+def divide(level, times, radix=10, offset=0, digits=2):
+    p = level.parsers[-1]
+    u = p.unit()
+    return _Level(
+        level,
+        DecimalPartParser(u[0]/times, u[1]/times, radix=radix, offset=offset, digits=digits)
+    )
 
-    L1 = _Level(
-        IntegralPartParser()
-    )
-    L2 = _Level(
-        L1,
-        DecimalPartParser(300, 450)
-    )
-    L3 = _Level(
-        L2,
-        DecimalPartParser(30, 45)
-    )
-    HALF = _Level(
-        L3,
-        DecimalPartParser(15, 22.5, radix=2, offset=1, digits=1)
-    )
-    QUOTER = _Level(
-        HALF,
-        DecimalPartParser(7.5, 11.25, radix=2, offset=1, digits=1)
-    )
-    EIGHTH = _Level(
-        QUOTER,
-        DecimalPartParser(3.75, 5.625, radix=2, offset=1, digits=1)
-    )
-    TWENTYTH = _Level(
-        HALF,
-        DecimalPartParser(1.5, 2.25)
-    )
+class Level:
+    L1 = _Level(IntegralPartParser())
+    L2 = divide(L1, 8)
+    L3 = divide(L2, 10)
+    HALF = divide(L3, 2, radix=2, offset=1, digits=1)
+    QUOTER = divide(HALF, 2, radix=2, offset=1, digits=1)
+    EIGHTH = divide(QUOTER, 2, radix=2, offset=1, digits=1)
+    TWENTYTH = divide(HALF, 10)
 
 def code( lat, lon, level ):
     codes = []
