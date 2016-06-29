@@ -80,8 +80,8 @@ class Level:
     L2 = divide(L1, 8)
     L3 = divide(L2, 10)
     HALF = divide(L3, 2, radix=2, offset=1, digits=1)
-    QUOTER = divide(HALF, 2, radix=2, offset=1, digits=1)
-    EIGHTH = divide(QUOTER, 2, radix=2, offset=1, digits=1)
+    QUARTER = divide(HALF, 2, radix=2, offset=1, digits=1)
+    EIGHTH = divide(QUARTER, 2, radix=2, offset=1, digits=1)
     TWENTYTH = divide(HALF, 10)
 
 def code( lat, lon, level ):
