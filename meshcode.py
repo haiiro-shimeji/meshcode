@@ -61,7 +61,7 @@ class _Level:
     parsers = []
 
     def __init__(self, *parsers):
-        if _Level == type(parsers[0]):
+        if isinstance(parsers[0], _Level):
             self.parsers = parsers[0].parsers
             self.parsers += parsers[1:]
         else:
